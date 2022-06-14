@@ -1,7 +1,6 @@
 # JetpackSample
-I've started learning jetpack compose with working on this repo
-so far I've used these technologies
-
-Koin for dependency injectiion
-Ktor for http request
-ViewModel and Repository architecture
+I've started learning jetpack compose with working on this repo.</br></br>
+so far I've used the following technologies</br>
+Koin for dependency injectiion </br>
+Ktor for http request </br>
+ViewModel and Repository architecture </br>
