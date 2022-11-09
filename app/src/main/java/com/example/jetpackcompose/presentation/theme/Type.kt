@@ -51,3 +51,8 @@ val appBarBigTitle = TextStyle(
     fontSize = 34.sp,
     color = Color.White
 )
+val appBarSmallTitle = TextStyle(
+    fontFamily = FontFamily(Font(R.font.sf_pro_display_bold, weight = FontWeight.Bold)),
+    fontSize = 22.sp,
+    color = Color.White
+)
