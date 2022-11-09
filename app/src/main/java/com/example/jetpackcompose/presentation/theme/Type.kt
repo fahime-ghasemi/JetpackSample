@@ -24,23 +24,23 @@ val cardTitle = TextStyle(
     color = CardItemTitle
 )
 
-val cardGenre =  TextStyle(
+val cardGenre = TextStyle(
     fontFamily = FontFamily(Font(R.font.sf_pro_text_regular, weight = FontWeight.Normal)),
     fontSize = 12.sp,
     color = CardItemGenre
 )
-val cardCount =  TextStyle(
+val cardCount = TextStyle(
     fontFamily = FontFamily(Font(R.font.sf_pro_text_semibold, weight = FontWeight.SemiBold)),
     fontSize = 11.sp,
     color = CardItemCount
 )
-val searchHint =  TextStyle(
+val searchHint = TextStyle(
     fontFamily = FontFamily(Font(R.font.sf_pro_text_regular, weight = FontWeight.Normal)),
     fontSize = 17.sp,
     color = Hint
 )
 
-val searchBar =  TextStyle(
+val searchBar = TextStyle(
     fontFamily = FontFamily(Font(R.font.sf_pro_text_regular, weight = FontWeight.Normal)),
     fontSize = 24.sp,
     color = Color.White
@@ -55,4 +55,9 @@ val appBarSmallTitle = TextStyle(
     fontFamily = FontFamily(Font(R.font.sf_pro_display_bold, weight = FontWeight.Bold)),
     fontSize = 22.sp,
     color = Color.White
+)
+val countStyle = TextStyle(
+    fontFamily = FontFamily(Font(R.font.sf_pro_text_semibold, weight = FontWeight.SemiBold)),
+    fontSize = 11.sp,
+    color = Color.Black
 )

@@ -33,7 +33,7 @@ fun FeedList(
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             items(res.itemCount, key = {
-                index -> "a_+$index"
+                index -> index
             })
             { index ->
                 res[index]?.let {
