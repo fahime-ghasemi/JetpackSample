@@ -3,6 +3,7 @@ package com.example.jetpackcompose.presentation.component
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,6 +16,7 @@ import com.example.jetpackcompose.presentation.viewmodel.FeedViewModel
 @Composable
 fun FeedList(
     viewModel: FeedViewModel,
+    lazyGridState: LazyGridState,
     modifier: Modifier = Modifier
 ) {
     val res = viewModel.getFeedResultStream().collectAsLazyPagingItems()
@@ -25,12 +27,14 @@ fun FeedList(
             .padding(16.dp)
     ) {
         LazyVerticalGrid(
-//            state = scrollState,
+            state = lazyGridState,
             columns = GridCells.Fixed(2),
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            items(res.itemCount)
+            items(res.itemCount, key = {
+                index -> "a_+$index"
+            })
             { index ->
                 res[index]?.let {
                     FeedItem(it)

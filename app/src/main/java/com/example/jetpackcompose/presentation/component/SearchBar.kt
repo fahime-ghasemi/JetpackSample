@@ -29,6 +29,11 @@ import com.example.jetpackcompose.R
 import com.example.jetpackcompose.presentation.theme.Hint
 import com.example.jetpackcompose.presentation.theme.searchBackground
 
+/**
+ * I've used BasicTextField here because of searchbar height. I couldn't use TextField here
+ * because it had a padding around and we can't remove it.
+ * It causes we can't have a TextField with a small height like one we have here in the design
+ */
 @Composable
 fun SearchBar(
     modifier: Modifier = Modifier
@@ -50,8 +55,7 @@ fun SearchBar(
                 searchBackground,
                 RoundedCornerShape(10.dp)
             )
-            .padding(0.dp)
-            .height(36.dp),
+            .padding(0.dp),
         fontSize = 17.sp,
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
         keyboardActions = KeyboardActions(onSearch = {
@@ -89,13 +93,11 @@ private fun CustomTextField(
         textStyle = LocalTextStyle.current.copy(
             color = Hint,
             fontSize = fontSize
-        )
-        ,
+        ),
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
         decorationBox = { innerTextField ->
             Row(
-                modifier,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 if (leadingIcon != null) leadingIcon()
@@ -117,5 +119,5 @@ private fun CustomTextField(
 @Preview
 @Composable
 fun SearchBarPreview() {
-    SearchBar()
+    SearchBar(Modifier.height(searchBarHeight))
 }
