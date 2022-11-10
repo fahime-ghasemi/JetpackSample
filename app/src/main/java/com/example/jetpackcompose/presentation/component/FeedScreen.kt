@@ -50,20 +50,25 @@ fun Appbar(lazyGridState: LazyGridState = rememberLazyGridState()) {
         appbarWidthPX.toDp()
     }
 
-    val changeRange = appBarExpandedHeight - appBarCollapsedHeight
+    val changeRangeDP = appBarExpandedHeight - appBarCollapsedHeight
+    val changeRangePX = with(LocalDensity.current)
+    {
+        changeRangeDP.toPx()
+    }
 
     /**
      * I have to add this if statement because in grid firstVisibleItemScrollOffset resets to zero for each line
      */
-    val fraction = if (lazyGridState.firstVisibleItemIndex != 0) 1f
-    else
-        with(LocalDensity.current)
-        {
-            (lazyGridState.firstVisibleItemScrollOffset / changeRange.toPx()).coerceIn(
+    val fraction by derivedStateOf {
+        if (lazyGridState.firstVisibleItemIndex != 0) 1f
+        else
+
+            (lazyGridState.firstVisibleItemScrollOffset / changeRangePX).coerceIn(
                 0f,
                 1f
             )
-        }
+
+    }
 
     val toolbarHeight = lerp(appBarExpandedHeight, appBarCollapsedHeight, fraction)
     val titleY = lerp(
