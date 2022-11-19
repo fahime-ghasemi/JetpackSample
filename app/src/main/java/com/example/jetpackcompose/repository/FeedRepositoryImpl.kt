@@ -1,6 +1,5 @@
 package com.example.jetpackcompose.repository
 
-import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -19,7 +18,6 @@ class FeedRepositoryImpl(private val feedService: FeedService) : FeedRepository 
     }
 
     override fun getFeed(): Flow<PagingData<Feed>> {
-        Log.i("fahi","repository getFeed")
 
         return Pager(
             config = PagingConfig(
@@ -31,7 +29,6 @@ class FeedRepositoryImpl(private val feedService: FeedService) : FeedRepository 
     }
 
     override fun search(query: String): Flow<PagingData<Feed>> {
-        Log.i("fahi","repository search $query")
         return Pager(
             config = PagingConfig(
                 pageSize = NETWORK_PAGE_SIZE,

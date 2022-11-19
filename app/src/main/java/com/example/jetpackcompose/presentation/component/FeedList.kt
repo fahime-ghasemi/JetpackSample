@@ -1,8 +1,15 @@
 package com.example.jetpackcompose.presentation.component
 
-import android.util.Log
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyGridState
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -16,13 +23,14 @@ import kotlinx.coroutines.flow.Flow
 @Composable
 fun FeedList(
     lazyGridState: LazyGridState = rememberLazyGridState(),
-    feedList:Flow<PagingData<Feed>>,
-    modifier: Modifier = Modifier
+    feedList: Flow<PagingData<Feed>>,
+    modifier: Modifier = Modifier,
+    onDataLoaded: () -> Unit
 ) {
     val res = feedList.collectAsLazyPagingItems()
-    Log.i("fahi","recompose items count = ${res.itemCount}")
-
-
+    if (res.itemCount > 0) {
+        onDataLoaded()
+    }
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -42,6 +50,7 @@ fun FeedList(
                     FeedItem(it)
                 }
             }
+
             res.apply {
                 when {
                     loadState.refresh is LoadState.Loading -> {
@@ -55,7 +64,7 @@ fun FeedList(
                             LineFadeProgressIndicator(modifier = Modifier.wrapContentWidth())
                         }
                     }
-                    loadState.prepend is LoadState.Error -> {
+                    loadState.prepend is LoadState.Loading -> {
                         item(span = { GridItemSpan(maxLineSpan) }) {
                             LineFadeProgressIndicator(modifier = Modifier.wrapContentWidth())
                         }

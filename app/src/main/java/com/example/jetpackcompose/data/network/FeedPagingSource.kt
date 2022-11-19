@@ -23,11 +23,7 @@ class FeedPagingSource(private val feedService: FeedService, private val query: 
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Feed> {
         val page = params.key ?: FEED_STARTING_PAGE_INDEX
-        Log.i("fahi","page load is $page")
-        Log.i("fahi","load size is is ${params.loadSize}")
-
         return try {
-
             val items = if (query == null) feedService.getFeed(page).map { it.toFeed() }
             else feedService.searchFeed(page, query).map { it.toFeed() }
 

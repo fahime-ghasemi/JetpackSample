@@ -1,8 +1,12 @@
 package com.example.jetpackcompose.presentation.component
 
-import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
@@ -27,6 +31,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.jetpackcompose.R
+import com.example.jetpackcompose.presentation.component.progress.LineFadeProgressIndicator
 import com.example.jetpackcompose.presentation.theme.Hint
 import com.example.jetpackcompose.presentation.theme.searchBackground
 
@@ -38,22 +43,25 @@ import com.example.jetpackcompose.presentation.theme.searchBackground
 @Composable
 fun SearchBar(
     modifier: Modifier = Modifier,
+    searching: Boolean,
     value: TextFieldValue,
     onValueChange: (TextFieldValue) -> Unit
 ) {
-    Log.i("fahi","recompose searchbar")
     val focusManager = LocalFocusManager.current
-
     CustomTextField(
         value = value,
         onValueChange = onValueChange,
         leadingIcon = {
-            Icon(
-                Icons.Filled.Search,
-                null,
-                modifier = Modifier.padding(start = 4.dp),
-                tint = Hint
-            )
+            if (searching) {
+                LineFadeProgressIndicator(modifier = Modifier.padding(start = 4.dp).wrapContentWidth())
+            } else {
+                Icon(
+                    Icons.Filled.Search,
+                    null,
+                    modifier = Modifier.padding(start = 4.dp),
+                    tint = Hint
+                )
+            }
         },
         trailingIcon = null,
         modifier = modifier
@@ -90,7 +98,7 @@ private fun CustomTextField(
             RoundedCornerShape(10.dp),
         )
         .fillMaxWidth()
-        .onFocusChanged {  },
+        .onFocusChanged { },
         value = value,
         onValueChange = onValueChange,
         singleLine = true,
@@ -106,7 +114,10 @@ private fun CustomTextField(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 if (leadingIcon != null) leadingIcon()
-                Box(Modifier.weight(1f)) {
+                Box(
+                    Modifier
+                        .padding(start = 4.dp)
+                        .weight(1f)) {
                     if (value.text.isEmpty()) Text(
                         placeholderText,
                         style = LocalTextStyle.current.copy(
@@ -125,5 +136,5 @@ private fun CustomTextField(
 @Preview
 @Composable
 fun SearchBarPreview() {
-    SearchBar(Modifier.height(searchBarHeight), TextFieldValue("")) {}
+    SearchBar(Modifier.height(searchBarHeight),false, TextFieldValue("")) {}
 }
