@@ -1,11 +1,17 @@
 package com.example.jetpackcompose.presentation
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.Surface
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.example.jetpackcompose.presentation.component.FeedScreen
 import com.example.jetpackcompose.presentation.theme.JetpackComposeTheme
 import com.example.jetpackcompose.presentation.theme.mainBackground
@@ -24,13 +30,22 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = mainBackground
                 ) {
-                        FeedScreen(viewModel)
+                    FeedScreen(viewModel)
+//                    testView()
                 }
             }
         }
     }
 }
 
+@Composable
+fun testView() {
+    var text by remember { mutableStateOf("") }
+
+    BasicTextField(modifier = Modifier.fillMaxWidth().height(34.dp), value = text, onValueChange = {
+        Log.i("fahi","onValueChange")
+        text = it })
+}
 
 
 //@Preview(showBackground = true)

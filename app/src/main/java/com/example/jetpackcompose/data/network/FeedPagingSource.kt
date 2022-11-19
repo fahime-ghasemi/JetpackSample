@@ -5,12 +5,12 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.jetpackcompose.data.dto.toFeed
 import com.example.jetpackcompose.domain.model.Feed
-import com.example.jetpackcompose.repository.FeedRepository
 import io.ktor.utils.io.errors.*
 
 private const val FEED_STARTING_PAGE_INDEX = 0
 
-class FeedPagingSource(private val feedRepository: FeedRepository) : PagingSource<Int, Feed>() {
+class FeedPagingSource(private val feedService: FeedService, private val query: String?) :
+    PagingSource<Int, Feed>() {
 
 
     override fun getRefreshKey(state: PagingState<Int, Feed>): Int? {
@@ -23,9 +23,14 @@ class FeedPagingSource(private val feedRepository: FeedRepository) : PagingSourc
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Feed> {
         val page = params.key ?: FEED_STARTING_PAGE_INDEX
+        Log.i("fahi","page load is $page")
+        Log.i("fahi","load size is is ${params.loadSize}")
 
         return try {
-            val items = feedRepository.getFeed(page).map { it.toFeed() }
+
+            val items = if (query == null) feedService.getFeed(page).map { it.toFeed() }
+            else feedService.searchFeed(page, query).map { it.toFeed() }
+
             LoadResult.Page(
                 data = items,
                 prevKey = if (page == FEED_STARTING_PAGE_INDEX) null else page - 1,

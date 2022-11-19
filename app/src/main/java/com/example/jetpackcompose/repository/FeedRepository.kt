@@ -1,6 +1,9 @@
 package com.example.jetpackcompose.repository
-import com.example.jetpackcompose.data.dto.FeedDto
+import androidx.paging.PagingData
+import com.example.jetpackcompose.domain.model.Feed
+import kotlinx.coroutines.flow.Flow
 
 interface FeedRepository {
-    suspend fun getFeed(page:Int): List<FeedDto>
+    fun getFeed(): Flow<PagingData<Feed>>
+    fun search(query:String):Flow<PagingData<Feed>>
 }

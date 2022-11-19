@@ -1,5 +1,6 @@
 package com.example.jetpackcompose.presentation.component
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -13,14 +14,14 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -36,11 +37,16 @@ import com.example.jetpackcompose.presentation.theme.searchBackground
  */
 @Composable
 fun SearchBar(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    value: TextFieldValue,
+    onValueChange: (TextFieldValue) -> Unit
 ) {
+    Log.i("fahi","recompose searchbar")
     val focusManager = LocalFocusManager.current
 
     CustomTextField(
+        value = value,
+        onValueChange = onValueChange,
         leadingIcon = {
             Icon(
                 Icons.Filled.Search,
@@ -67,6 +73,8 @@ fun SearchBar(
 
 @Composable
 private fun CustomTextField(
+    value: TextFieldValue,
+    onValueChange: (TextFieldValue) -> Unit,
     modifier: Modifier = Modifier,
     leadingIcon: (@Composable () -> Unit)? = null,
     trailingIcon: (@Composable () -> Unit)? = null,
@@ -76,18 +84,15 @@ private fun CustomTextField(
     fontSize: TextUnit = MaterialTheme.typography.body2.fontSize
 ) {
 
-    val text = remember { mutableStateOf("") }
     BasicTextField(modifier = modifier
         .background(
             searchBackground,
             RoundedCornerShape(10.dp),
         )
-        .fillMaxWidth(),
-        value = text.value,
-        onValueChange = {
-            text.value = it
-        },
-
+        .fillMaxWidth()
+        .onFocusChanged {  },
+        value = value,
+        onValueChange = onValueChange,
         singleLine = true,
         cursorBrush = SolidColor(MaterialTheme.colors.primary),
         textStyle = LocalTextStyle.current.copy(
@@ -102,7 +107,7 @@ private fun CustomTextField(
             ) {
                 if (leadingIcon != null) leadingIcon()
                 Box(Modifier.weight(1f)) {
-                    if (text.value.isEmpty()) Text(
+                    if (value.text.isEmpty()) Text(
                         placeholderText,
                         style = LocalTextStyle.current.copy(
                             color = Hint,
@@ -116,8 +121,9 @@ private fun CustomTextField(
         }
     )
 }
+
 @Preview
 @Composable
 fun SearchBarPreview() {
-    SearchBar(Modifier.height(searchBarHeight))
+    SearchBar(Modifier.height(searchBarHeight), TextFieldValue("")) {}
 }

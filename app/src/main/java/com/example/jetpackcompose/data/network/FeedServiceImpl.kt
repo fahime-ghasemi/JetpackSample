@@ -10,6 +10,8 @@ import io.ktor.client.request.*
 class FeedServiceImpl(private val client: HttpClient) : FeedService {
 
     override suspend fun getFeed(page: Int): List<FeedDto> {
+        Log.i("fahi","getFeed is $page")
+
         return try {
             if (page < 5)
                 client.get<FeedResponse> {
@@ -17,6 +19,27 @@ class FeedServiceImpl(private val client: HttpClient) : FeedService {
                 }.data.sessions
             else
                 emptyList()
+        } catch (e: ServerResponseException) {
+            emptyList()
+        } catch (e: Exception) {
+            Log.d("fahi", e.printStackTrace().toString())
+            emptyList()
+        }
+    }
+
+    /**
+     * I imagined that always we have one page of search result
+     */
+    override suspend fun searchFeed(page: Int, query: String): List<FeedDto> {
+        return try {
+            Log.i("fahi","searchFeed is $page")
+            if (page == 0)
+                client.get<FeedResponse> {
+                    url(ApiRoutes.SEARCH)
+                }.data.sessions
+            else
+                emptyList()
+
         } catch (e: ServerResponseException) {
             emptyList()
         } catch (e: Exception) {

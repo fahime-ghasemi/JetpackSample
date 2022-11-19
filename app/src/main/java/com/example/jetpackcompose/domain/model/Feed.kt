@@ -8,8 +8,7 @@ data class Feed (
     val currentTrack: TrackDto
 )
 {
-    fun getGenresAsString():String
-    {
-        return genres.joinToString()
-    }
+//   val previewFeedResource = listOf(
+//       Feed()
+//   )
 }
