@@ -3,17 +3,23 @@ package com.example.jetpackcompose.data.network
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.jetpackcompose.data.dto.toFeed
-import com.example.jetpackcompose.domain.model.Feed
+import com.example.jetpackcompose.domain.interactor.GetSessionListUseCase
+import com.example.jetpackcompose.domain.interactor.SearchSessionListUseCase
+import com.example.jetpackcompose.domain.model.Session
 import io.ktor.utils.io.errors.*
+import kotlinx.coroutines.flow.toList
 
 private const val FEED_STARTING_PAGE_INDEX = 0
 
-class FeedPagingSource(private val feedService: FeedService, private val query: String?) :
-    PagingSource<Int, Feed>() {
+class FeedPagingSource(
+    private val getSessionListUseCase: GetSessionListUseCase,
+    private val searchSessionListUseCase: SearchSessionListUseCase,
+    private val query: String?
+) :
+    PagingSource<Int, Session>() {
 
 
-    override fun getRefreshKey(state: PagingState<Int, Feed>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, Session>): Int? {
         Log.d("fahi", "getRefreshKey " + state.anchorPosition)
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
@@ -21,11 +27,11 @@ class FeedPagingSource(private val feedService: FeedService, private val query: 
         }
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Feed> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Session> {
         val page = params.key ?: FEED_STARTING_PAGE_INDEX
         return try {
-            val items = if (query == null) feedService.getFeed(page).map { it.toFeed() }
-            else feedService.searchFeed(page, query).map { it.toFeed() }
+            val items = if (query == null) getSessionListUseCase(page).toList()
+            else searchSessionListUseCase(page, query).toList()
 
             LoadResult.Page(
                 data = items,

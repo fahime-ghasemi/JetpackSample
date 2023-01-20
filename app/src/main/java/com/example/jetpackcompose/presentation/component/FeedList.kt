@@ -16,18 +16,18 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.example.jetpackcompose.domain.model.Feed
+import com.example.jetpackcompose.domain.model.Session
 import com.example.jetpackcompose.presentation.component.progress.LineFadeProgressIndicator
 import kotlinx.coroutines.flow.Flow
 
 @Composable
 fun FeedList(
     lazyGridState: LazyGridState = rememberLazyGridState(),
-    feedList: Flow<PagingData<Feed>>,
+    sessionList: Flow<PagingData<Session>>,
     modifier: Modifier = Modifier,
     onDataLoaded: () -> Unit
 ) {
-    val res = feedList.collectAsLazyPagingItems()
+    val res = sessionList.collectAsLazyPagingItems()
     if (res.itemCount > 0) {
         onDataLoaded()
     }

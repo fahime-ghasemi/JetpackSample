@@ -9,12 +9,12 @@ import androidx.compose.ui.Modifier
 import com.example.jetpackcompose.presentation.component.FeedScreen
 import com.example.jetpackcompose.presentation.theme.JetpackComposeTheme
 import com.example.jetpackcompose.presentation.theme.mainBackground
-import com.example.jetpackcompose.presentation.viewmodel.FeedViewModel
+import com.example.jetpackcompose.presentation.viewmodel.SessionsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MainActivity : ComponentActivity() {
-    private val viewModel by viewModel<FeedViewModel>()
+    private val viewModel by viewModel<SessionsViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

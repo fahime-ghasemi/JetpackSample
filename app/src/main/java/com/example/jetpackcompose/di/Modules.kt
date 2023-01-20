@@ -1,10 +1,10 @@
 package com.example.jetpackcompose.di
 
-import com.example.jetpackcompose.data.network.FeedService
-import com.example.jetpackcompose.data.network.FeedServiceImpl
-import com.example.jetpackcompose.presentation.viewmodel.FeedViewModel
-import com.example.jetpackcompose.repository.FeedRepository
-import com.example.jetpackcompose.repository.FeedRepositoryImpl
+import com.example.jetpackcompose.data.network.KtorSessionService
+import com.example.jetpackcompose.data.network.SessionService
+import com.example.jetpackcompose.domain.model.repository.SessionRepository
+import com.example.jetpackcompose.domain.model.repository.SessionRepositoryImpl
+import com.example.jetpackcompose.presentation.viewmodel.SessionsViewModel
 import io.ktor.client.*
 import io.ktor.client.engine.android.*
 import io.ktor.client.features.json.*
@@ -28,14 +28,14 @@ object Modules {
                 }
             }
         }
-        single<FeedService> {
-            FeedServiceImpl(get())
+        single<SessionService> {
+            KtorSessionService(get())
         }
-        single<FeedRepository> {
-            FeedRepositoryImpl(get())
+        single<SessionRepository> {
+            SessionRepositoryImpl(get())
         }
         viewModel {
-            FeedViewModel(get())
+            SessionsViewModel(get(), get())
         }
     }
 }

@@ -1,15 +1,15 @@
 package com.example.jetpackcompose.data.network
 
 import android.util.Log
-import com.example.jetpackcompose.data.dto.FeedDto
+import com.example.jetpackcompose.data.dto.SessionDto
 import com.example.jetpackcompose.data.network.response.FeedResponse
 import io.ktor.client.*
 import io.ktor.client.features.*
 import io.ktor.client.request.*
 
-class FeedServiceImpl(private val client: HttpClient) : FeedService {
+class KtorSessionService(private val client: HttpClient) : SessionService {
 
-    override suspend fun getFeed(page: Int): List<FeedDto> {
+    override suspend fun getSessions(page: Int): List<SessionDto> {
         return try {
             if (page < 5)
                 client.get<FeedResponse> {
@@ -28,7 +28,7 @@ class FeedServiceImpl(private val client: HttpClient) : FeedService {
     /**
      * I imagined that always we have one page of search result
      */
-    override suspend fun searchFeed(page: Int, query: String): List<FeedDto> {
+    override suspend fun search(page: Int, query: String): List<SessionDto> {
         return try {
             if (page == 0)
                 client.get<FeedResponse> {

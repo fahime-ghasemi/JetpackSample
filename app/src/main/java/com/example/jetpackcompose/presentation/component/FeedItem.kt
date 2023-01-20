@@ -2,7 +2,11 @@ package com.example.jetpackcompose.presentation.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
@@ -17,12 +21,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jetpackcompose.R
 import com.example.jetpackcompose.data.dto.TrackDto
-import com.example.jetpackcompose.domain.model.Feed
-import com.example.jetpackcompose.presentation.theme.*
+import com.example.jetpackcompose.domain.model.Session
+import com.example.jetpackcompose.presentation.theme.JetpackComposeTheme
+import com.example.jetpackcompose.presentation.theme.cardGenre
+import com.example.jetpackcompose.presentation.theme.cardTitle
+import com.example.jetpackcompose.presentation.theme.countBg
+import com.example.jetpackcompose.presentation.theme.countStyle
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
-fun FeedItem(item: Feed?) {
+fun FeedItem(item: Session?) {
     Card(shape = RoundedCornerShape(10.dp)) {
         Box(modifier = Modifier.aspectRatio(1f)) {
             GlideImage(
@@ -80,7 +88,7 @@ fun previewCountItem() {
 fun DefaultPreview() {
     JetpackComposeTheme {
         FeedItem(
-            item = Feed(
+            item = Session(
                 "hi",
                 2,
                 arrayListOf(),

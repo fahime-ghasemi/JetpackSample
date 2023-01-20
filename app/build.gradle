@@ -5,12 +5,12 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.jetpackcompose"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -37,43 +37,44 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion compose_version
+        kotlinCompilerExtensionVersion '1.3.2'
     }
     packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+    namespace 'com.example.jetpackcompose'
 }
 
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.8.0'
-    implementation "androidx.compose.ui:ui:$compose_version"
-    implementation "androidx.compose.material:material:$compose_version"
-//    implementation "androidx.compose.material3:material3:$material3_version"
-    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
+    implementation "androidx.compose.ui:ui:$library.compose_version"
+    implementation "androidx.compose.material:material:$library.compose_version"
+    implementation "androidx.compose.ui:ui-tooling-preview:$library.compose_version"
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
     implementation 'androidx.activity:activity-compose:1.4.0'
     //Ktor dependencies
-    implementation "io.ktor:ktor-client-core:$ktor_version"
-    implementation "io.ktor:ktor-client-android:$ktor_version"
-    implementation "io.ktor:ktor-client-serialization:$ktor_version"
-    implementation "io.ktor:ktor-client-logging:$ktor_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization_version"
+    implementation "io.ktor:ktor-client-core:$library.ktor_version"
+    implementation "io.ktor:ktor-client-android:$library.ktor_version"
+    implementation "io.ktor:ktor-client-serialization:$library.ktor_version"
+    implementation "io.ktor:ktor-client-logging:$library.ktor_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$library.serialization_version"
 
-    implementation "io.insert-koin:koin-android:$koin_version"
-    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
-    implementation "androidx.paging:paging-compose:$paging_compose_version"
+    implementation "io.insert-koin:koin-android:$library.koin_version"
+    implementation "androidx.paging:paging-runtime-ktx:$library.paging_version"
+    implementation "androidx.paging:paging-compose:$library.paging_compose_version"
 
-    implementation "com.github.skydoves:landscapist-glide:$landscapist_version"
+    implementation "com.github.skydoves:landscapist-glide:$library.landscapist_version"
 
 
 
     testImplementation 'junit:junit:4.13.2'
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$library.coroutines_version"
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$library.compose_version"
+    debugImplementation "androidx.compose.ui:ui-tooling:$library.compose_version"
+    debugImplementation "androidx.compose.ui:ui-test-manifest:$library.compose_version"
 }

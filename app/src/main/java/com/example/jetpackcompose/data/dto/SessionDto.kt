@@ -1,11 +1,11 @@
 package com.example.jetpackcompose.data.dto
 
-import com.example.jetpackcompose.domain.model.Feed
+import com.example.jetpackcompose.domain.model.Session
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class FeedDto(
+data class SessionDto(
     val name: String,
     @SerialName("listener_count")
     val listenerCount: Int,
@@ -14,8 +14,8 @@ data class FeedDto(
     val currentTrack: TrackDto
 )
 
-fun FeedDto.toFeed(): Feed {
-    return Feed(
+fun SessionDto.toSession(): Session {
+    return Session(
         name = name,
         listenerCount = listenerCount,
         genres = genres,

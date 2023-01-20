@@ -12,13 +12,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.paging.PagingData
-import com.example.jetpackcompose.domain.model.Feed
-import com.example.jetpackcompose.presentation.viewmodel.FeedViewModel
+import com.example.jetpackcompose.domain.model.Session
+import com.example.jetpackcompose.presentation.viewmodel.SessionsViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 
 @Composable
-fun FeedScreen(viewModel: FeedViewModel, state: FeedState = rememberFeedState()) {
+fun FeedScreen(viewModel: SessionsViewModel, state: FeedState = rememberFeedState()) {
     Log.i("fahi", "FeedScreen")
     Column {
         Appbar(state.lazyGridState, state.query, state.searching) {
@@ -45,7 +45,7 @@ fun FeedScreen(viewModel: FeedViewModel, state: FeedState = rememberFeedState())
 fun rememberFeedState(
     query: TextFieldValue = TextFieldValue(""),
     lazyGridState: LazyGridState = rememberLazyGridState(),
-    result: Flow<PagingData<Feed>> = emptyFlow(),
+    result: Flow<PagingData<Session>> = emptyFlow(),
     searching: Boolean = false
 ): FeedState {
     return remember {
@@ -56,7 +56,7 @@ fun rememberFeedState(
 class FeedState(
     query: TextFieldValue,
     lazyGridState: LazyGridState,
-    result: Flow<PagingData<Feed>>,
+    result: Flow<PagingData<Session>>,
     searching: Boolean
 ) {
     var query by mutableStateOf(query)
