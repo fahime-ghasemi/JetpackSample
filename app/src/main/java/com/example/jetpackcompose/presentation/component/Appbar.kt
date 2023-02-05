@@ -1,6 +1,5 @@
 package com.example.jetpackcompose.presentation.component
 
-import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -38,8 +37,6 @@ fun Appbar(
     searching:Boolean,
     onSearch: (TextFieldValue) -> Unit
 ) {
-    Log.i("fahi","recompose appbar")
-    Log.i("fahi","searching is $searching")
     var titleHeightPX by remember { mutableStateOf(0f) }
     var titleWidthPX by remember { mutableStateOf(0f) }
     val titleHeightDP = with(LocalDensity.current) {
@@ -131,5 +128,5 @@ fun Appbar(
 @Preview
 @Composable
 fun AppbarPreview() {
-    Appbar (query = TextFieldValue(""), searching = false){}
+    Appbar (query = TextFieldValue(), searching = false){}
 }

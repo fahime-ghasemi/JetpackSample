@@ -1,6 +1,6 @@
 package com.example.jetpackcompose.domain.interactor
 
-import com.example.jetpackcompose.domain.model.repository.SessionRepository
+import com.example.jetpackcompose.domain.repository.SessionRepository
 import kotlinx.coroutines.flow.emptyFlow
 
 class SearchSessionListUseCase(private val sessionRepository: SessionRepository) {

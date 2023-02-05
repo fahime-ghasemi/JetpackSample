@@ -1,6 +1,5 @@
 package com.example.jetpackcompose.data.network
 
-import android.util.Log
 import com.example.jetpackcompose.data.dto.SessionDto
 import com.example.jetpackcompose.data.network.response.FeedResponse
 import io.ktor.client.*
@@ -20,7 +19,6 @@ class KtorSessionService(private val client: HttpClient) : SessionService {
         } catch (e: ServerResponseException) {
             emptyList()
         } catch (e: Exception) {
-            Log.d("fahi", e.printStackTrace().toString())
             emptyList()
         }
     }
@@ -40,7 +38,6 @@ class KtorSessionService(private val client: HttpClient) : SessionService {
         } catch (e: ServerResponseException) {
             emptyList()
         } catch (e: Exception) {
-            Log.d("fahi", e.printStackTrace().toString())
             emptyList()
         }
     }

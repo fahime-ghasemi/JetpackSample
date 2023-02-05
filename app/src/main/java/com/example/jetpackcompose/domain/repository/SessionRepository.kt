@@ -1,4 +1,4 @@
-package com.example.jetpackcompose.domain.model.repository
+package com.example.jetpackcompose.domain.repository
 
 import com.example.jetpackcompose.domain.model.Session
 import kotlinx.coroutines.flow.Flow

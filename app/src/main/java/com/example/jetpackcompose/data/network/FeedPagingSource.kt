@@ -1,6 +1,5 @@
 package com.example.jetpackcompose.data.network
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.jetpackcompose.domain.interactor.GetSessionListUseCase
@@ -20,7 +19,6 @@ class FeedPagingSource(
 
 
     override fun getRefreshKey(state: PagingState<Int, Session>): Int? {
-        Log.d("fahi", "getRefreshKey " + state.anchorPosition)
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)

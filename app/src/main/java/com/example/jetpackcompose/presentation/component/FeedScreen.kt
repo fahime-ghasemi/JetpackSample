@@ -1,67 +1,36 @@
 package com.example.jetpackcompose.presentation.component
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.paging.PagingData
-import com.example.jetpackcompose.domain.model.Session
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.jetpackcompose.presentation.action.SessionAction
+import com.example.jetpackcompose.presentation.event.SessionEvent
 import com.example.jetpackcompose.presentation.viewmodel.SessionsViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emptyFlow
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
-fun FeedScreen(viewModel: SessionsViewModel, state: FeedState = rememberFeedState()) {
-    Log.i("fahi", "FeedScreen")
+fun FeedScreen(viewModel: SessionsViewModel) {
+    val lazyGridState = rememberLazyGridState()
+    val sessionsUiState by viewModel.sessionsUiState.collectAsStateWithLifecycle()
+    var textState by remember { mutableStateOf(TextFieldValue("")) }
+
     Column {
-        Appbar(state.lazyGridState, state.query, state.searching) {
-            state.query = it
+        Appbar(lazyGridState, query = textState, sessionsUiState.searching) {
+            textState = it
+            viewModel.action(SessionAction.SearchAction(it.text))
         }
 
-        LaunchedEffect(key1 = state.query.text, block = {
-            if (state.query.text.isEmpty()) {
-                state.result = viewModel.feed
-            } else {
-                state.searching = true
-                state.result = viewModel.search(state.query.text)
-            }
-        })
-        FeedList(state.lazyGridState, state.result)
+        FeedList(lazyGridState = lazyGridState, sessionList = viewModel.pagingDataFlow)
         {
-            Log.i("fahi", "onDataLoaded ")
-            state.searching = false
+            viewModel.event(SessionEvent.SearchCompletedEvent)
         }
     }
-}
-
-@Composable
-fun rememberFeedState(
-    query: TextFieldValue = TextFieldValue(""),
-    lazyGridState: LazyGridState = rememberLazyGridState(),
-    result: Flow<PagingData<Session>> = emptyFlow(),
-    searching: Boolean = false
-): FeedState {
-    return remember {
-        FeedState(query, lazyGridState, result, searching)
-    }
-}
-
-class FeedState(
-    query: TextFieldValue,
-    lazyGridState: LazyGridState,
-    result: Flow<PagingData<Session>>,
-    searching: Boolean
-) {
-    var query by mutableStateOf(query)
-    var lazyGridState = lazyGridState
-    var result by mutableStateOf(result)
-    var searching by mutableStateOf(searching)
 }
 

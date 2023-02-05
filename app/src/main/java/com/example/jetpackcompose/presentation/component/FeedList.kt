@@ -22,9 +22,9 @@ import kotlinx.coroutines.flow.Flow
 
 @Composable
 fun FeedList(
+    modifier: Modifier = Modifier,
     lazyGridState: LazyGridState = rememberLazyGridState(),
     sessionList: Flow<PagingData<Session>>,
-    modifier: Modifier = Modifier,
     onDataLoaded: () -> Unit
 ) {
     val res = sessionList.collectAsLazyPagingItems()

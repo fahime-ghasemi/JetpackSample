@@ -1,7 +1,7 @@
 package com.example.jetpackcompose
 
 import com.example.jetpackcompose.domain.model.Session
-import com.example.jetpackcompose.domain.model.repository.SessionRepository
+import com.example.jetpackcompose.domain.repository.SessionRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 
