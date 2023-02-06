@@ -1,4 +1,4 @@
-Jetpack Sample
+Jetpack Sample [work in progress]
 ==================
 
 This repo demonstrates how we can use jetpack compose to build an app for showing a list and filtering the list with search feature.
